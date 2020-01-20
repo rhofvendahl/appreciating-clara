@@ -1,0 +1,157 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+    margin: 0px;
+}
+
+.page-container {
+    height: 100%;
+}
+
+.panel-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    xtouch-action: none;
+}
+
+.panel-left {
+    position: relative;
+    flex: 0 0 auto;
+    min-width: 150px;
+    min-height: 100%;
+    max-height: 100%;
+    width: 100%;
+}
+
+.splitter {
+    flex: 0 0 auto;
+    width: 10px;
+    /* background: url(https://raw.githubusercontent.com/RickStrahl/jquery-resizable/master/assets/vsizegrip.png) center center no-repeat #535353; */
+    min-height: 100%;
+    max-height: 100%;
+    background-color: lightgrey;
+    cursor: col-resize;
+}
+
+#handle {
+    position: relative;
+    top: 50%;
+    z-index: 1;
+}
+
+#triangle-left, #triangle-right {
+    position: absolute;
+    /* top: 50%; */
+    /* z-index: 1; */
+    font-size: 20px;
+    transform: translateY(-50%);
+    color: lightgrey;
+}
+
+#triangle-left {
+    /* position: absolute; */
+    /* font-size: 160px; */
+    right: calc(100% + 8px);
+    /* bottom: 50%; */
+    /* top: -50%; */
+    /* margin-top: -500%; */
+}
+
+#triangle-right {
+    /* position: absolute; */
+    /* font-size: 160px; */
+    left: calc(100% + 8px);
+    /* translate */
+}
+
+.panel-right {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: 100%;
+    max-height: 100%;
+    background-color: whitesmoke;
+}
+
+#footer {
+    position: fixed;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+}
+
+#text {
+    width: 700px;
+    font-size: 24px;
+    outline: 0;
+}
+
+#title {
+    font-size: 56px;
+}
+
+#visual {
+    color: pink;
+}
+
+#parse {
+    color: lightblue;
+}
+
+#parse-tree {
+    width: 100%;
+    height: 100%;
+}
+
+/* svg {
+    position: relative;
+} */
+
+#about {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 56px;
+    color: lightgrey;
+    z-index: 1;
+}
+
+#about a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* html, body {
+height: 100%;
+}
+
+body {
+margin: 0px;
+}
+
+#page {
+position: absolute;
+left: 20px;
+top: 20px;
+bottom: 20px;
+width: 30%;
+background-color:  whitesmoke;
+outline: 0px;
+resize: none;
+border: 0px;
+padding: 0px;
+}
+*/
+
+#experiment {
+    /* position: absolute; */
+    /* left: calc(20px + 30%);
+    right: 0; */
+    height: 100%;
+}

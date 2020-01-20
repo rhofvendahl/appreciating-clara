@@ -1,0 +1,6 @@
+.DS_Store
+.env
+venv
+not_data/
+notebooks/
+.pytest_cache/
