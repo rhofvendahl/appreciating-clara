@@ -25,7 +25,9 @@ $(document).ready(function() {
         do {
             prevAppreciation = manager.appreciations[Math.floor(Math.random() * manager.appreciations.length)];
         } while (prevAppreciation.selected);
-        prevAppreciation.toggle()
+        if (prevApplication.selected) {
+            prevAppreciation.toggle()
+        }
     }, 3000);
 
     setTimeout(() => {
@@ -49,7 +51,7 @@ $(document).ready(function() {
                 appreciation = manager.appreciations[Math.floor(Math.random() * manager.appreciations.length)];
             } while (appreciation.selected);
 
-            if (prevAppreciation != undefined) {
+            if (prevAppreciation.selected) {
                 prevAppreciation.toggle()
             }
             appreciation.toggle();

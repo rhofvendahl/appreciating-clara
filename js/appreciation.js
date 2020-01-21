@@ -92,17 +92,7 @@ class Appreciation {
         console.log('trying to remove', edgesToRemove)
         this.visual.edges.remove(edgesToRemove);
     }
-
-    // log() {
-    //     if (this.visual.toggleLog.length > 3) {
-    //         this.visual.toggleLog[0].toggle();
-    //         this.visual.toggleLog.shift();
-    //         this.visual.toggleLog.push(this);
-    //     } else {
-    //         this.visual.toggleLog.push(this);
-    //     }
-    // }
-
+    
     toggle() {
         console.log('toggling!');
         if (this.selected) {
@@ -115,8 +105,6 @@ class Appreciation {
             this.showEdges();
             this.selected = true;
             this.render();
-
-            // this.log()
         }
     }
 }
