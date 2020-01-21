@@ -40,7 +40,7 @@ $(document).ready(function() {
                 prevAppreciation.toggle()
             }
             prevAppreciation = appreciation;
-        }, 7000);
+        }, 10000);
 
         setInterval(() => {
             visual.network.moveTo({
@@ -54,7 +54,7 @@ $(document).ready(function() {
                     easingFunction: 'easeInOutQuart'
                 }
             })
-        }, 7000);
+        }, 10000);
     }, 3000);
 
 });
