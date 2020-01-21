@@ -7,7 +7,7 @@ class Need {
         this.longName;
         this.category;
         this.color;
-        this.parentNode;
+        this.parentNodeId;
     }
 
     render() {
@@ -16,6 +16,13 @@ class Need {
             label: this.shortName,
             title: '(' + this.category + ') ' + this.longName,
             color: this.color
+        });
+
+        this.visual.edges.update({
+            id: this.nodeId + '-' + this.parentNodeId,
+            from: this.nodeId,
+            to: this.parentNodeId,
+            color: {color: 'red'}
         });
     }
 }

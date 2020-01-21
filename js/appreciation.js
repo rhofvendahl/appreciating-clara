@@ -13,8 +13,7 @@ class Appreciation {
         this.pastTense;
         this.selected;
         this.color;
-        this.parentNode;
-        // console.log(this.nodeId);
+        this.parentNodeId;
     }
 
     // UPDATE PARSETREE'S VISJS NETWORK
@@ -42,14 +41,21 @@ class Appreciation {
 
     render() {
         var frankenstein =  this.pastTense ?
-            '<p>When Clara ' + this.actionsText + ', I felt ' + this.feelingsText + ', and my needs for ' + this.needsText + ' was met.</p>' :
-            '<p>When Clara ' + this.actionsText + ', I feel ' + this.feelingsText + ', and my needs for ' + this.needsText + ' are met.</p>';
-            var frankenstein = frankenstein.replace(/((?:[^ ]* ){17}[^ ]*) /g, '$1</p><p>');
+            'When Clara ' + this.actionsText + ', I felt ' + this.feelingsText + ', and my needs for ' + this.needsText + ' was met.' :
+            'When Clara ' + this.actionsText + ', I feel ' + this.feelingsText + ', and my needs for ' + this.needsText + ' are met.';
+            var frankenstein = frankenstein.replace(/((?:[^ ]* ){17}[^ ]*) /g, '$1\n');
         this.visual.nodes.update({
             id: this.nodeId,
-            label: this.label,
+            label: this.selected ? frankenstein : this.label,
             title: frankenstein,
             color: this.color
+        });
+
+        this.visual.edges.update({
+            id: this.nodeId + '-' + this.parentNodeId,
+            from: this.nodeId,
+            to: this.parentNodeId,
+            color: {color: 'blue'}
         });
     }
 
@@ -87,6 +93,16 @@ class Appreciation {
         this.visual.edges.remove(edgesToRemove);
     }
 
+    // log() {
+    //     if (this.visual.toggleLog.length > 3) {
+    //         this.visual.toggleLog[0].toggle();
+    //         this.visual.toggleLog.shift();
+    //         this.visual.toggleLog.push(this);
+    //     } else {
+    //         this.visual.toggleLog.push(this);
+    //     }
+    // }
+
     toggle() {
         console.log('toggling!');
         if (this.selected) {
@@ -99,7 +115,8 @@ class Appreciation {
             this.showEdges();
             this.selected = true;
             this.render();
+
+            // this.log()
         }
-        // console.log(this.visual.edges);
     }
 }

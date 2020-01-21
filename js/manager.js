@@ -60,6 +60,17 @@ class Manager {
             ['Order', 'Order', 'Spiritual Communion'],
             ['Peace', 'Peace', 'Spiritual Communion']
         ]
+
+        this.needCategoryArray = [
+            'Autonomy',
+            'Celebration',
+            'Integrity',
+            'Interdependence',
+            'Physical Nurturance',
+            'Play',
+            'Spiritual Communion'
+        ]
+
         // this.appreciationObjects = $.csv.toObjects(this.appreciationData);
         this.appreciationArrays = $.csv.toArrays(this.appreciationData);
         this.appreciationArrays.shift();
@@ -89,6 +100,13 @@ class Manager {
     }
 
     generateFeelings() {
+        var centerNodeId = this.visual.nodes.length;
+        this.visual.nodes.update({
+            id: centerNodeId,
+            label: 'FEELINGS',
+            color: 'lightyellow'
+        });
+
         for (var string of this.feelingArray) {
             var feeling = new Feeling(
                 this.visual,
@@ -97,6 +115,7 @@ class Manager {
             );
             feeling.name = string;
             feeling.color = 'lightyellow'
+            feeling.parentNodeId = centerNodeId;
 
             this.feelings.push(feeling);
             // console.log(feeling);
@@ -113,6 +132,32 @@ class Manager {
     }
 
     generateNeeds() {
+        var centerNodeId = this.visual.nodes.length;
+        this.visual.nodes.update({
+            id: centerNodeId,
+            label: 'NEEDS',
+            color: 'pink'
+        });
+
+        var categoryNodeIds = {};
+        for (var category of this.needCategoryArray) {
+            categoryNodeIds[category] = this.visual.nodes.length;
+            var id = categoryNodeIds[category];
+            this.visual.nodes.update({
+                id: id,
+                label: category,
+                color: 'pink'
+            })
+
+            this.visual.edges.update({
+                id: id + '-' + centerNodeId,
+                from: id,
+                to: centerNodeId,
+                color: {color: 'red'}
+            });
+        }
+
+
         for (var array of this.needArrays) {
             var need = new Need(
                 this.visual,
@@ -123,6 +168,7 @@ class Manager {
             need.longName = array[1];
             need.category = array[2];
             need.color = 'pink';
+            need.parentNodeId = categoryNodeIds[need.category];
 
             this.needs.push(need);
             // console.log(need);
@@ -131,6 +177,13 @@ class Manager {
     }
 
     generateAppreciations() {
+        var centerNodeId = this.visual.nodes.length;
+        this.visual.nodes.update({
+            id: centerNodeId,
+            label: 'APPRECIATIONS\n(click them!)',
+            color: 'lightblue'
+        });
+
         for (var array of this.appreciationArrays) {
             // console.log('generating appreciation', this.appreciations[0], this.appreciations.length);
             var appreciation = new Appreciation(
@@ -158,6 +211,7 @@ class Manager {
             appreciation.pastTense = (array[40] == 'Past (I felt)');
             appreciation.selected = false;
             appreciation.color = 'lightblue';
+            appreciation.parentNodeId = centerNodeId;
 
             this.appreciations.push(appreciation);
             // console.log(appreciation)
@@ -172,7 +226,5 @@ class Manager {
         this.generateFeelings();
         this.generateNeeds();
         this.generateAppreciations();
-
-        
     }
 }

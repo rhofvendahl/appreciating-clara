@@ -5,7 +5,7 @@ class Feeling {
         this.nodeId = nodeId;
         this.name;
         this.color;
-        this.parentNode;
+        this.parentNodeId;
     }
 
     render() {
@@ -14,6 +14,13 @@ class Feeling {
             label: this.name,
             title: this.name,
             color: this.color
+        });
+
+        this.visual.edges.update({
+            id: this.nodeId + '-' + this.parentNodeId,
+            from: this.nodeId,
+            to: this.parentNodeId,
+            color: {color: 'orange'}
         });
     }
 }

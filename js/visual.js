@@ -7,6 +7,8 @@ class Visual {
         var data = {nodes: this.nodes, edges: this.edges};
         var options = {};
         this.network = new vis.Network(container, data, options);
+
+        // this.toggleLog = [];
     }
 
     fit() {
