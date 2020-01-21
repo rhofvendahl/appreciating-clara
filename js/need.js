@@ -7,6 +7,7 @@ class Need {
         this.longName;
         this.category;
         this.color;
+        this.parentNode;
     }
 
     render() {

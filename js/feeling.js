@@ -5,6 +5,7 @@ class Feeling {
         this.nodeId = nodeId;
         this.name;
         this.color;
+        this.parentNode;
     }
 
     render() {

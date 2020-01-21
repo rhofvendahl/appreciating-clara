@@ -58,17 +58,34 @@ class Manager {
             ['Harmony', 'Harmony', 'Spiritual Communion'],
             ['Inspiration', 'Inspiration', 'Spiritual Communion'],
             ['Order', 'Order', 'Spiritual Communion'],
-            ['Peace', 'Peace', 'Spiritual Communion'],
-            []
+            ['Peace', 'Peace', 'Spiritual Communion']
         ]
         // this.appreciationObjects = $.csv.toObjects(this.appreciationData);
-        this.appreciationArrays = $.csv.toArrays(this.appreciationData).shift();
+        this.appreciationArrays = $.csv.toArrays(this.appreciationData);
+        this.appreciationArrays.shift();
         console.log(this.appreciationArrays);
 
 
         this.feelings = []
         this.needs = []
         this.appreciations = [];
+
+        var self = this;
+        this.visual.network.on('click', function(properties) {
+            if (properties.nodes.length > 0) {
+                var nodeId = properties.nodes[0];
+                // console.log(nodeId, self.feelings.length, self.needs.length, self.appreciations.length);
+                for (var appreciation of self.appreciations) {
+                    // console.log(appreciation.nodeId);
+                    if (appreciation.nodeId == nodeId) {
+                        // console.log('booya');
+                        appreciation.toggle();
+                        break
+                    }
+                }
+                // console.log('ah well');
+            }
+        });
     }
 
     generateFeelings() {
@@ -79,15 +96,15 @@ class Manager {
                 this.visual.nodes.length
             );
             feeling.name = string;
-            feeling.color = 'yellow'
+            feeling.color = 'lightyellow'
 
-            this.feelings += feeling;
+            this.feelings.push(feeling);
+            // console.log(feeling);
             feeling.render();
-            console.log(feeling)
         }
     }
 
-    findFeeling(feelingString) {
+    getFeelingFromName(feelingString) {
         for (var feeling of this.feelings) {
             if (feeling.name == feelingString) {
                 return feeling;
@@ -104,16 +121,18 @@ class Manager {
             );
             need.shortName = array[0];
             need.longName = array[1];
-            need.category = array[3];
-            need.color = 'red';
+            need.category = array[2];
+            need.color = 'pink';
 
-            this.needs += need;
+            this.needs.push(need);
+            // console.log(need);
             need.render()
         }
     }
 
     generateAppreciations() {
         for (var array of this.appreciationArrays) {
+            // console.log('generating appreciation', this.appreciations[0], this.appreciations.length);
             var appreciation = new Appreciation(
                 this.visual,
                 this.appreciations.length,
@@ -126,28 +145,34 @@ class Manager {
             appreciation.feelings = []
             var feelingStrings = array[4].split(', ');
             for (var feelingString of feelingStrings) {
-                appreciation.feelings += this.findFeeling(feelingString);
+                appreciation.feelings.push(this.getFeelingFromName(feelingString));
             }
             appreciation.needsText = array[5];
             appreciation.needs = []
-            for (var i; i < this.needs.length; i++) {
+            for (var i = 0; i < this.needs.length; i++) {
                 if (array[i + 6] == 'Met') {
-                    appreciation.needs += this.needs[i];
+                    appreciation.needs.push(this.needs[i]);
                 }
             }
             appreciation.togetherText = array[39];
             appreciation.pastTense = (array[40] == 'Past (I felt)');
-            appreciation.collapsed = true;
-            appreciation.color = 'blue';
+            appreciation.selected = false;
+            appreciation.color = 'lightblue';
 
-            this.appreciations += appreciation;
+            this.appreciations.push(appreciation);
+            // console.log(appreciation)
             appreciation.render();
+            // console.log('generating appreciation', this.appreciations.length);
         }
+
+        console.log('appreciations', this.appreciations.length);
     }
 
     generate() {
         this.generateFeelings();
         this.generateNeeds();
         this.generateAppreciations();
+
+        
     }
 }
