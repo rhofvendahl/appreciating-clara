@@ -21,16 +21,27 @@ $(document).ready(function() {
     // }, 5000);
 
     var prevAppreciation;
+    var appreciation;
     setTimeout(() => {
+        console.log('Timeout!');
         do {
-            prevAppreciation = manager.appreciations[Math.floor(Math.random() * manager.appreciations.length)];
-        } while (prevAppreciation.selected);
-        if (prevApplication.selected) {
-            prevAppreciation.toggle()
-        }
-    }, 3000);
+            appreciation = manager.appreciations[Math.floor(Math.random() * manager.appreciations.length)];
+        } while (appreciation.selected);
+        appreciation.toggle();
+        prevAppreciation = appreciation;
 
-    setTimeout(() => {
+        setInterval(() => {
+            do {
+                appreciation = manager.appreciations[Math.floor(Math.random() * manager.appreciations.length)];
+            } while (appreciation.selected);
+            appreciation.toggle();
+
+            if (prevAppreciation.selected) {
+                prevAppreciation.toggle()
+            }
+            prevAppreciation = appreciation;
+        }, 7000);
+
         setInterval(() => {
             visual.network.moveTo({
                 position: {
@@ -44,18 +55,6 @@ $(document).ready(function() {
                 }
             })
         }, 7000);
+    }, 3000);
 
-        setInterval(() => {
-            var appreciation;
-            do {
-                appreciation = manager.appreciations[Math.floor(Math.random() * manager.appreciations.length)];
-            } while (appreciation.selected);
-
-            if (prevAppreciation.selected) {
-                prevAppreciation.toggle()
-            }
-            appreciation.toggle();
-            prevAppreciation = appreciation;
-        }, 7000);
-    }, 10000);
 });
