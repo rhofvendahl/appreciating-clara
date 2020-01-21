@@ -1,18 +1,20 @@
 class Appreciation {
-    constructor(visual, id) {
+    constructor(visual, id, nodeId) {
         this.visual = visual;
         this.id = id;
+        this.nodeId = nodeId;
+        this.label;
+        this.actionsText;
+        this.feelingsText;
+        this.feelings = [];
+        this.needsText;
+        this.needs = [];
+        this.togetherText;
+        this.pastTense;
+        this.collapsed = true;
+        this.color;
     }
 
-    this.title
-    this.actions_text
-    this.feelings_text
-    this.feelings = []
-    this.needs_text
-    this.needs = []
-    this.together_text
-    this.past_tense
-    this.collapsed = true;
 
     // UPDATE PARSETREE'S VISJS NETWORK
     render() {
@@ -34,6 +36,17 @@ class Appreciation {
             label: this.dep,
             title: depDescriptions[this.dep],
             arrows: 'to'
+        });
+    }
+
+    render() {
+        this.visual.nodes.update({
+            id: this.nodeId,
+            label: this.label,
+            title: this.pastTense ?
+                'When Clara ' + this.actionsText + ', I felt ' + this.feelingsText + ', and my needs for ' + this.needsText + ' was met.' :
+                'When Clara ' + this.actionsText + ', I feel ' + this.feelingsText + ', and my needs for ' + this.needsText + ' are met.',
+            color: this.color
         });
     }
 }

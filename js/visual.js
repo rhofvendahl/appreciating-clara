@@ -7,13 +7,14 @@ class Visual {
         var data = {nodes: this.nodes, edges: this.edges};
         var options = {};
         this.network = new vis.Network(container, data, options);
-
-        this.feelings = []
-        this.needs = []
-        this.appreciations = [];
-
-        this.dataManager = new DataManager();
     }
 
-
+    fit() {
+        console.log(this.nodes);
+        var fitOptions = {
+            nodes: this.nodes.getIds()
+        };
+        this.network.fit(fitOptions);
+        console.log('DONE');
+    };
 }
