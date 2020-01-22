@@ -118,7 +118,6 @@ class Manager {
             feeling.parentNodeId = centerNodeId;
 
             this.feelings.push(feeling);
-            // console.log(feeling);
             feeling.render();
         }
     }
@@ -171,7 +170,6 @@ class Manager {
             need.parentNodeId = categoryNodeIds[need.category];
 
             this.needs.push(need);
-            // console.log(need);
             need.render()
         }
     }
@@ -185,7 +183,6 @@ class Manager {
         });
 
         for (var array of this.appreciationArrays) {
-            // console.log('generating appreciation', this.appreciations[0], this.appreciations.length);
             var appreciation = new Appreciation(
                 this.visual,
                 this.appreciations.length,
@@ -214,9 +211,7 @@ class Manager {
             appreciation.parentNodeId = centerNodeId;
 
             this.appreciations.push(appreciation);
-            // console.log(appreciation)
             appreciation.render();
-            // console.log('generating appreciation', this.appreciations.length);
         }
 
         console.log('appreciations', this.appreciations.length);
