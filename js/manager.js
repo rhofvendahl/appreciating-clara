@@ -225,7 +225,7 @@ class Manager {
     }
 
     allTuckedAway() {
-        return this.appreciations.every((appreciation) => !appreciation.selected));
+        return this.appreciations.every((appreciation) => !appreciation.selected);
 
     }
 }

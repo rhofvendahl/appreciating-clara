@@ -26,18 +26,18 @@ $(document).ready(function() {
         do {
             appreciation = manager.appreciations[Math.floor(Math.random() * manager.appreciations.length)];
         } while (appreciation.selected);
-        appreciation.toggle();
+        if (manager.allTuckedAway()) appreciation.toggle();
         prevAppreciation = appreciation;
 
         setInterval(() => {
             do {
                 appreciation = manager.appreciations[Math.floor(Math.random() * manager.appreciations.length)];
             } while (appreciation.selected);
-            appreciation.toggle();
-
             if (prevAppreciation.selected) {
                 prevAppreciation.toggle()
             }
+            if (manager.allTuckedAway()) appreciation.toggle();
+
             prevAppreciation = appreciation;
         }, 10000);
 
