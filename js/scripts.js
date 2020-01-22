@@ -1,8 +1,13 @@
 $(document).ready(function() {
-    var visual = new Visual();
-    var manager = new Manager(visual);
-    manager.generate();
-    // console.log(visual.nodes)
+    var container = $('#visual')[0];
+    var visual = new Visual(container);
+    Feeling.generate(visual);
+    Need.generate(visual);
+
+    var data = $('#data')[0].innerText;
+    var dataArrays = $.csv.toArrays(data).slice(1);
+    Appreciation.importData(dataArrays);
+    Appreciation.generate(visual);
 
     // var toggleLog = []
     // setInterval(() => {
@@ -24,35 +29,25 @@ $(document).ready(function() {
     var appreciation;
     setTimeout(() => {
         do {
-            appreciation = manager.appreciations[Math.floor(Math.random() * manager.appreciations.length)];
+            appreciation = Appreciation.appreciations[Math.floor(Math.random() * Appreciation.appreciations.length)];
         } while (appreciation.selected);
-        if (manager.allTuckedAway()) appreciation.toggle();
+        if (Appreciation.allTuckedAway()) appreciation.toggle();
         prevAppreciation = appreciation;
 
         setInterval(() => {
             do {
-                appreciation = manager.appreciations[Math.floor(Math.random() * manager.appreciations.length)];
+                appreciation = Appreciation.appreciations[Math.floor(Math.random() * Appreciation.appreciations.length)];
             } while (appreciation.selected);
             if (prevAppreciation.selected) {
                 prevAppreciation.toggle()
             }
-            if (manager.allTuckedAway()) appreciation.toggle();
+            if (Appreciation.allTuckedAway()) appreciation.toggle();
 
             prevAppreciation = appreciation;
         }, 10000);
 
         setInterval(() => {
-            visual.network.moveTo({
-                position: {
-                    x: 0,
-                    y: 0
-                },
-                scale: 1,
-                animation: {
-                    duration:3000,
-                    easingFunction: 'easeInOutQuart'
-                }
-            })
+            visual.center();
         }, 10000);
     }, 3000);
 

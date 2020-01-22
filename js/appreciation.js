@@ -16,27 +16,59 @@ class Appreciation {
         this.parentNodeId;
     }
 
-    // UPDATE PARSETREE'S VISJS NETWORK
-    render() {
-        if (this.dep != 'ROOT') {
-            this.hidden = this.head.collapsed || this.head.hidden;
+    static importData(dataArrays) {
+        this.dataArrays = dataArrays;
+    }
+
+    // static data = $('#data')[0].innerText;
+    // static dataArrays = $.csv.toArrays(this.data).slice(1);
+
+    static appreciations = [];
+
+    static generate(visual) {
+        var centerNodeId = visual.nodes.length;
+        visual.nodes.update({
+            id: centerNodeId,
+            label: 'APPRECIATIONS\n( click them! )',
+            color: 'lightblue'
+        });
+
+        for (var array of this.dataArrays) {
+            var appreciation = new Appreciation(
+                visual,
+                this.appreciations.length,
+                visual.nodes.length
+            );
+            appreciation.timestamp = array[0];
+            appreciation.label = array[1];
+            appreciation.actionsText = array[2];
+            appreciation.feelingsText = array[3];
+            appreciation.feelings = []
+            var feelingStrings = array[4].split(', ');
+            for (var feelingString of feelingStrings) {
+                appreciation.feelings.push(Feeling.getFeelingFromName(feelingString));
+            }
+            appreciation.needsText = (array[5] == '') ? '[404 ERROO0R NOT FOUND ERROR]' : array[5];
+            appreciation.needs = []
+            for (var i = 0; i < Need.needs.length; i++) {
+                if (array[i + 6] == 'Met') {
+                    appreciation.needs.push(Need.needs[i]);
+                }
+            }
+            appreciation.togetherText = array[39];
+            appreciation.pastTense = (array[40] == 'Past (I felt)');
+            appreciation.selected = false;
+            appreciation.color = 'lightblue';
+            appreciation.parentNodeId = centerNodeId;
+
+            this.appreciations.push(appreciation);
+            appreciation.render();
         }
 
-        this.visual.nodes.update({
-            id: this.id,
-            label: this.collapsed ? this.collapsedText : this.text,
-            title: tagDescriptions[this.tag],
-            color: this.color,
-            hidden: this.hidden
-        });
-        this.visual.edges.update({
-            id: this.id,
-            from: this.headId,
-            to: this.id,
-            label: this.dep,
-            title: depDescriptions[this.dep],
-            arrows: 'to'
-        });
+    }
+
+    static allTuckedAway() {
+        return this.appreciations.every((appreciation) => !appreciation.selected);
     }
 
     render() {
@@ -106,4 +138,5 @@ class Appreciation {
             this.render();
         }
     }
+
 }
