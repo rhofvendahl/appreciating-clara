@@ -60,9 +60,8 @@ class Appreciation {
     }
 
     showEdges() {
-        console.log('showing edges')
+        // console.log('showing edges')
         for (var feeling of this.feelings) {
-            console.log('feeling', feeling)
             this.visual.edges.update({
                 id: this.nodeId + '-' + feeling.nodeId,
                 from: this.nodeId,
@@ -92,16 +91,16 @@ class Appreciation {
         console.log('trying to remove', edgesToRemove)
         this.visual.edges.remove(edgesToRemove);
     }
-    
+
     toggle() {
-        console.log('toggling!');
+        console.log('toggling!', this.nodeId);
         if (this.selected) {
-            console.log('hiding');
+            // console.log('hiding');
             this.hideEdges();
             this.selected = false;
             this.render();
         } else {
-            console.log('showing');
+            // console.log('showing');
             this.showEdges();
             this.selected = true;
             this.render();

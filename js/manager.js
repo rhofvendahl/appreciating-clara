@@ -74,7 +74,6 @@ class Manager {
         // this.appreciationObjects = $.csv.toObjects(this.appreciationData);
         this.appreciationArrays = $.csv.toArrays(this.appreciationData);
         this.appreciationArrays.shift();
-        console.log(this.appreciationArrays);
 
 
         this.feelings = []
@@ -124,7 +123,8 @@ class Manager {
 
     getFeelingFromName(feelingString) {
         for (var feeling of this.feelings) {
-            if (feeling.name == feelingString) {
+            // terrible hack because I forgot to capitalize "surprised" in survey
+            if (feeling.name.toLowerCase() == feelingString.toLowerCase()) {
                 return feeling;
             }
         }
@@ -197,7 +197,7 @@ class Manager {
             for (var feelingString of feelingStrings) {
                 appreciation.feelings.push(this.getFeelingFromName(feelingString));
             }
-            appreciation.needsText = array[5];
+            appreciation.needsText = (array[5] == '') ? '[404 ERROO0R NOT FOUND ERROR]' : array[5];
             appreciation.needs = []
             for (var i = 0; i < this.needs.length; i++) {
                 if (array[i + 6] == 'Met') {
@@ -212,6 +212,7 @@ class Manager {
 
             this.appreciations.push(appreciation);
             appreciation.render();
+            console.log(appreciation.nodeId, appreciation);
         }
 
         console.log('appreciations', this.appreciations.length);
@@ -221,5 +222,10 @@ class Manager {
         this.generateFeelings();
         this.generateNeeds();
         this.generateAppreciations();
+    }
+
+    allTuckedAway() {
+        return this.appreciations.every((appreciation) => !appreciation.selected));
+
     }
 }

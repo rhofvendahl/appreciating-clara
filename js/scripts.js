@@ -2,7 +2,7 @@ $(document).ready(function() {
     var visual = new Visual();
     var manager = new Manager(visual);
     manager.generate();
-
+    console.log(visual.nodes)
 
     // var toggleLog = []
     // setInterval(() => {
@@ -23,7 +23,6 @@ $(document).ready(function() {
     var prevAppreciation;
     var appreciation;
     setTimeout(() => {
-        console.log('Timeout!');
         do {
             appreciation = manager.appreciations[Math.floor(Math.random() * manager.appreciations.length)];
         } while (appreciation.selected);
