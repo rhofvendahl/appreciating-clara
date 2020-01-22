@@ -178,7 +178,7 @@ class Manager {
         var centerNodeId = this.visual.nodes.length;
         this.visual.nodes.update({
             id: centerNodeId,
-            label: 'APPRECIATIONS\n(click them!)',
+            label: 'APPRECIATIONS\n( click them! )',
             color: 'lightblue'
         });
 
