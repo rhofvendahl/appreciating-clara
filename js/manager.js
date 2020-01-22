@@ -42,7 +42,6 @@ class Manager {
             ['Appreciation', 'Appreciation', 'Interdependence'],
             ['Communication', 'Communication', 'Interdependence'],
             ['Empathy', 'Empathy', 'Interdependence'],
-            ['Acceptance', 'Acceptance', 'Interdependence'],
             ['Air', 'Air', 'Physical Nurturance'],
             ['Movement, exercise', 'Movement, exercise', 'Physical Nurturance'],
             ['Protection', 'Protection from life-threatening forms of life: viruses, bacteria, insects, predatory animals', 'Physical Nurturance'],
@@ -212,10 +211,10 @@ class Manager {
 
             this.appreciations.push(appreciation);
             appreciation.render();
-            console.log(appreciation.nodeId, appreciation);
+            // console.log(appreciation.nodeId, appreciation);
         }
 
-        console.log('appreciations', this.appreciations.length);
+        // console.log('appreciations', this.appreciations.length);
     }
 
     generate() {

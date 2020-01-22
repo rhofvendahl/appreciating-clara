@@ -88,12 +88,12 @@ class Appreciation {
         for (var need of this.needs) {
             edgesToRemove.push(this.nodeId + '-' + need.nodeId);
         }
-        console.log('trying to remove', edgesToRemove)
+        // console.log('trying to remove', edgesToRemove)
         this.visual.edges.remove(edgesToRemove);
     }
 
     toggle() {
-        console.log('toggling!', this.nodeId);
+        // console.log('toggling!', this.nodeId);
         if (this.selected) {
             // console.log('hiding');
             this.hideEdges();
